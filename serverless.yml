@@ -183,7 +183,7 @@ functions:
     environment:
       BASE_PATH: /blog
     events: # Use a generic proxy to allow Express app to route.
-      - http: ANY /blog
+      - http: ANY /
       - http: 'ANY /blog/{proxy+}'
     jetpack:
       trace:
