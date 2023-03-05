@@ -20,17 +20,23 @@ jobs:
       - run:
           name: Update package
           command: npm update undici
-      # - run:
-      #     name: Install lambda:sls
-      #     command: |
-      #       yarn add global @redantinc/lambda-sls
       - checkout
-      - aws-cli/setup
-      - serverless-framework/setup
+      - run: yarn install
+      - run:
+          name: Configure AWS Credentials
+          command: |
+            mkdir -p ~/.aws
+            echo "[default]" > ~/.aws/credentials
+            echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
+            echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
+      - run: yarn run lambda:sls setup
+      # - checkout
+      # - aws-cli/setup
+      # - serverless-framework/setup
       - run:
           name: Deploy to AWS Lambda
           command: |
-            yarn lambda:deploy
+            yarn run lambda:sls deploy
       # - run:
       #     name: Install lambda:sls
       #     command: |
