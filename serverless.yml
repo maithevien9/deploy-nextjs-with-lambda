@@ -50,7 +50,7 @@ custom:
           # -------
           # Our servers do lazy requires of pages.
           './server/blog.js': []
-          './server/root.js': []
+          # './server/root.js': []
 
           # Built
           # -----
@@ -204,17 +204,3 @@ functions:
         # TODO(STATIC): Should be served outside Lambda in real production.
         - '.next/static/**'
         - 'public/images/**'
-
-  # TODO(STATIC): Simple static server for root assets.
-  root:
-    handler: server/root.handler
-    environment:
-      BASE_PATH: /
-    events: # Use a generic proxy to allow Express app to route.
-      - http: ANY /
-      - http: 'ANY /{proxy+}'
-    package:
-      include:
-        # TODO(STATIC): Should be served outside Lambda in real production.
-        # Only favicon is served from root handler.
-        - 'public/favicon.ico'

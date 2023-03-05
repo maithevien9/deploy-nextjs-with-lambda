@@ -110,12 +110,6 @@
               "LogGroupName": "/aws/lambda/sls-nextjs-serverless-localdev-blog"
             }
           },
-          "RootLogGroup": {
-            "Type": "AWS::Logs::LogGroup",
-            "Properties": {
-              "LogGroupName": "/aws/lambda/sls-nextjs-serverless-localdev-root"
-            }
-          },
           "IamRoleLambdaExecution": {
             "Type": "AWS::IAM::Role",
             "Properties": {
@@ -200,7 +194,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/sls-nextjs-serverless/localdev/1678024976218-2023-03-05T14:02:56.218Z/blog.zip"
+                "S3Key": "serverless/sls-nextjs-serverless/localdev/1678027204610-2023-03-05T14:40:04.610Z/blog.zip"
               },
               "Handler": "server/blog.handler",
               "Runtime": "nodejs16.x",
@@ -235,59 +229,6 @@
             "DependsOn": [
               "BlogLogGroup"
             ]
-          },
-          "RootLambdaFunction": {
-            "Type": "AWS::Lambda::Function",
-            "Properties": {
-              "Code": {
-                "S3Bucket": {
-                  "Ref": "ServerlessDeploymentBucket"
-                },
-                "S3Key": "serverless/sls-nextjs-serverless/localdev/1678024976218-2023-03-05T14:02:56.218Z/root.zip"
-              },
-              "Handler": "server/root.handler",
-              "Runtime": "nodejs16.x",
-              "FunctionName": "sls-nextjs-serverless-localdev-root",
-              "MemorySize": 1024,
-              "Timeout": 30,
-              "Tags": [
-                {
-                  "Key": "Stage",
-                  "Value": "localdev"
-                },
-                {
-                  "Key": "Service",
-                  "Value": "nextjs-serverless"
-                }
-              ],
-              "Environment": {
-                "Variables": {
-                  "STAGE": "localdev",
-                  "SERVICE_NAME": "nextjs-serverless",
-                  "NODE_ENV": "production",
-                  "BASE_PATH": "/"
-                }
-              },
-              "Role": {
-                "Fn::GetAtt": [
-                  "IamRoleLambdaExecution",
-                  "Arn"
-                ]
-              }
-            },
-            "DependsOn": [
-              "RootLogGroup"
-            ]
-          },
-          "RootLambdaVersionZvGsJ22LMzETiutU2Np0nUxnuqOErpcNggO0FENbxw": {
-            "Type": "AWS::Lambda::Version",
-            "DeletionPolicy": "Retain",
-            "Properties": {
-              "FunctionName": {
-                "Ref": "RootLambdaFunction"
-              },
-              "CodeSha256": "ZQhATjXflGexxhCsOyAiVRY77BVyQHyUOUQGXG19Syg="
-            }
           },
           "BlogLambdaVersionQzN70ZxU0JNwTiRnVjSUAzRov1iAKnwG69q9PXFSM": {
             "Type": "AWS::Lambda::Version",
@@ -334,21 +275,6 @@
             "Properties": {
               "ParentId": {
                 "Ref": "ApiGatewayResourceBlog"
-              },
-              "PathPart": "{proxy+}",
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
-          "ApiGatewayResourceProxyVar": {
-            "Type": "AWS::ApiGateway::Resource",
-            "Properties": {
-              "ParentId": {
-                "Fn::GetAtt": [
-                  "ApiGatewayRestApi",
-                  "RootResourceId"
-                ]
               },
               "PathPart": "{proxy+}",
               "RestApiId": {
@@ -442,96 +368,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayMethodAny": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "HttpMethod": "ANY",
-              "RequestParameters": {},
-              "ResourceId": {
-                "Fn::GetAtt": [
-                  "ApiGatewayRestApi",
-                  "RootResourceId"
-                ]
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              },
-              "ApiKeyRequired": false,
-              "AuthorizationType": "NONE",
-              "Integration": {
-                "IntegrationHttpMethod": "POST",
-                "Type": "AWS_PROXY",
-                "Uri": {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":apigateway:",
-                      {
-                        "Ref": "AWS::Region"
-                      },
-                      ":lambda:path/2015-03-31/functions/",
-                      {
-                        "Fn::GetAtt": [
-                          "RootLambdaFunction",
-                          "Arn"
-                        ]
-                      },
-                      "/invocations"
-                    ]
-                  ]
-                }
-              },
-              "MethodResponses": []
-            }
-          },
-          "ApiGatewayMethodProxyVarAny": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "HttpMethod": "ANY",
-              "RequestParameters": {},
-              "ResourceId": {
-                "Ref": "ApiGatewayResourceProxyVar"
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              },
-              "ApiKeyRequired": false,
-              "AuthorizationType": "NONE",
-              "Integration": {
-                "IntegrationHttpMethod": "POST",
-                "Type": "AWS_PROXY",
-                "Uri": {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":apigateway:",
-                      {
-                        "Ref": "AWS::Region"
-                      },
-                      ":lambda:path/2015-03-31/functions/",
-                      {
-                        "Fn::GetAtt": [
-                          "RootLambdaFunction",
-                          "Arn"
-                        ]
-                      },
-                      "/invocations"
-                    ]
-                  ]
-                }
-              },
-              "MethodResponses": []
-            }
-          },
-          "ApiGatewayDeployment1678024973833": {
+          "ApiGatewayDeployment1678027202441": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -541,9 +378,7 @@
             },
             "DependsOn": [
               "ApiGatewayMethodBlogAny",
-              "ApiGatewayMethodBlogProxyVarAny",
-              "ApiGatewayMethodAny",
-              "ApiGatewayMethodProxyVarAny"
+              "ApiGatewayMethodBlogProxyVarAny"
             ]
           },
           "BlogLambdaPermissionApiGateway": {
@@ -582,55 +417,12 @@
                 ]
               }
             }
-          },
-          "RootLambdaPermissionApiGateway": {
-            "Type": "AWS::Lambda::Permission",
-            "Properties": {
-              "FunctionName": {
-                "Fn::GetAtt": [
-                  "RootLambdaFunction",
-                  "Arn"
-                ]
-              },
-              "Action": "lambda:InvokeFunction",
-              "Principal": "apigateway.amazonaws.com",
-              "SourceArn": {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:",
-                    {
-                      "Ref": "AWS::Partition"
-                    },
-                    ":execute-api:",
-                    {
-                      "Ref": "AWS::Region"
-                    },
-                    ":",
-                    {
-                      "Ref": "AWS::AccountId"
-                    },
-                    ":",
-                    {
-                      "Ref": "ApiGatewayRestApi"
-                    },
-                    "/*/*"
-                  ]
-                ]
-              }
-            }
           }
         },
         "Outputs": {
           "ServerlessDeploymentBucketName": {
             "Value": {
               "Ref": "ServerlessDeploymentBucket"
-            }
-          },
-          "RootLambdaFunctionQualifiedArn": {
-            "Description": "Current Lambda function version",
-            "Value": {
-              "Ref": "RootLambdaVersionZvGsJ22LMzETiutU2Np0nUxnuqOErpcNggO0FENbxw"
             }
           },
           "BlogLambdaFunctionQualifiedArn": {
@@ -802,7 +594,6 @@
               "next/dist/server/next-server.js": [],
               "next/dist/server/require.js": [],
               "/Users/vienmai/WorkSpaces/ReactJS/nextjs-serverless-demo/server/blog.js": [],
-              "/Users/vienmai/WorkSpaces/ReactJS/nextjs-serverless-demo/server/root.js": [],
               "/Users/vienmai/WorkSpaces/ReactJS/nextjs-serverless-demo/.next/server/webpack-api-runtime.js": [],
               "/Users/vienmai/WorkSpaces/ReactJS/nextjs-serverless-demo/.next/server/webpack-runtime.js": []
             }
@@ -855,32 +646,6 @@
         "runtime": "nodejs16.x",
         "vpc": {},
         "versionLogicalId": "BlogLambdaVersionQzN70ZxU0JNwTiRnVjSUAzRov1iAKnwG69q9PXFSM"
-      },
-      "root": {
-        "handler": "server/root.handler",
-        "environment": {
-          "BASE_PATH": "/"
-        },
-        "events": [
-          {
-            "http": "ANY /"
-          },
-          {
-            "http": "ANY /{proxy+}"
-          }
-        ],
-        "package": {
-          "include": [
-            "public/favicon.ico"
-          ],
-          "artifact": ".serverless/root.zip"
-        },
-        "name": "sls-nextjs-serverless-localdev-root",
-        "memory": 1024,
-        "timeout": 30,
-        "runtime": "nodejs16.x",
-        "vpc": {},
-        "versionLogicalId": "RootLambdaVersionZvGsJ22LMzETiutU2Np0nUxnuqOErpcNggO0FENbxw"
       }
     },
     "configValidationMode": "warn",
@@ -892,7 +657,7 @@
       },
       "package": {
         "individually": true,
-        "artifactDirectoryName": "serverless/sls-nextjs-serverless/localdev/1678024976218-2023-03-05T14:02:56.218Z"
+        "artifactDirectoryName": "serverless/sls-nextjs-serverless/localdev/1678027204610-2023-03-05T14:40:04.610Z"
       },
       "custom": {
         "$ref": "$[\"service\"][\"custom\"]"
@@ -911,7 +676,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/sls-nextjs-serverless/localdev/1678024976218-2023-03-05T14:02:56.218Z",
+    "artifactDirectoryName": "serverless/sls-nextjs-serverless/localdev/1678027204610-2023-03-05T14:40:04.610Z",
     "artifact": ""
   }
 }
