@@ -19,7 +19,7 @@ jobs:
           command: yarn clean && yarn build
       - aws-cli/setup
       - serverless-framework/setup
-     - run:
+      - run:
           name: Install AWS CLI
           command: |
             sudo apt-get update && sudo apt-get install -y python3-pip
