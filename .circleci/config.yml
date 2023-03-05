@@ -17,6 +17,9 @@ jobs:
       - run:
           name: Build
           command: yarn clean && yarn build
+      - run:
+          name: Update package
+          command: yarn update undici
       # - run:
       #     name: Install lambda:sls
       #     command: |
