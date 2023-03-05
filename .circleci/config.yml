@@ -25,8 +25,8 @@ jobs:
       - run:
           name: Install lambda:sls
           command: |
-            yarn add global serverless
-            serverless plugin install --name serverless-python-requirements
+            npm install -g @redantinc/lambda-sls
+            # serverless plugin install --name serverless-python-requirements
       # - run:
       #     name: Deploy
       #     command: yarn run lambda:sls deploy
@@ -41,7 +41,7 @@ jobs:
       - run:
           name: Deploy to AWS Lambda
           command: |
-            serverless deploy
+            lambda:sls deploy
 
 workflows:
   build_and_deploy:
