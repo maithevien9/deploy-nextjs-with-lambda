@@ -17,6 +17,17 @@ jobs:
       - run:
           name: Build
           command: yarn clean && yarn build
+      - run:
+          name: Install lambda:sls
+          command: |
+            yarn add global @redantinc/lambda-sls
+      - checkout
+      - aws-cli/setup
+      - serverless-framework/setup
+      - run:
+          name: Deploy to AWS Lambda
+          command: |
+            yarn lambda:deploy
       # - run:
       #     name: Install lambda:sls
       #     command: |
@@ -25,17 +36,10 @@ jobs:
       #     name: Deploy
       #     command: yarn run lambda:sls deploy
 
-  deploy_app:
-    docker:
-      - image: circleci/python:3.8
-    steps:
-      - checkout
-      - aws-cli/setup
-      - serverless-framework/setup
-      - run:
-          name: Deploy to AWS Lambda
-          command: |
-            yarn lambda:deploy
+  # deploy_app:
+  #   docker:
+  #     - image: circleci/python:3.8
+  #   steps:
 
 workflows:
   build_and_deploy:
@@ -44,9 +48,9 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy_app:
-          requires:
-            - build_deploy
-          filters:
-            branches:
-              only: master
+      # - deploy_app:
+      #     requires:
+      #       - build_deploy
+      #     filters:
+      #       branches:
+      #         only: master
