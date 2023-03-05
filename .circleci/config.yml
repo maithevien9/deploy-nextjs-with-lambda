@@ -1,0 +1,30 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.2.1
+
+jobs:
+  build_deploy:
+    executor:
+      name: node/default
+      tag: '12.19.0'
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Build
+          command: yarn clean && yarn build
+      - run:
+          name: Deploy
+          command: yarn lambda:deploy
+
+workflows:
+  version: 2
+  build_deploy:
+    jobs:
+      - build_deploy:
+          context: deploy
+          filters:
+            branches:
+              only: main
