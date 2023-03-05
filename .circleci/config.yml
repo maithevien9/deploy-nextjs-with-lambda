@@ -21,7 +21,7 @@ jobs:
       - serverless-framework/setup
       - run:
           name: Deploy
-          command: yarn lambda:deploy
+          command: yarn run lambda:sls deploy
 
 workflows:
   version: 2

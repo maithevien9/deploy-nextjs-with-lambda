@@ -200,7 +200,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/sls-nextjs-serverless/localdev/1678008178730-2023-03-05T09:22:58.730Z/blog.zip"
+                "S3Key": "serverless/sls-nextjs-serverless/localdev/1678018672404-2023-03-05T12:17:52.404Z/blog.zip"
               },
               "Handler": "server/blog.handler",
               "Runtime": "nodejs16.x",
@@ -243,7 +243,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/sls-nextjs-serverless/localdev/1678008178730-2023-03-05T09:22:58.730Z/root.zip"
+                "S3Key": "serverless/sls-nextjs-serverless/localdev/1678018672404-2023-03-05T12:17:52.404Z/root.zip"
               },
               "Handler": "server/root.handler",
               "Runtime": "nodejs16.x",
@@ -289,14 +289,14 @@
               "CodeSha256": "ZQhATjXflGexxhCsOyAiVRY77BVyQHyUOUQGXG19Syg="
             }
           },
-          "BlogLambdaVersionVCJ7FEqQSvBSFuG3wYSOURhqsfTeEg6QsdR6UxQ18": {
+          "BlogLambdaVersionp2GC5iceE6AjtOKE6WpAJPg4lQ5QKtJvC6huTMDuvw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "BlogLambdaFunction"
               },
-              "CodeSha256": "3voaFAlMuc9JLN0Uuuh9vDjQfSfS+Epdwq/+GbRQp8E="
+              "CodeSha256": "eZrrHQ+aAawsWbZchg/bCsmV6WmoFZklBdLTFyZTTmk="
             }
           },
           "ApiGatewayRestApi": {
@@ -531,7 +531,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1678008176673": {
+          "ApiGatewayDeployment1678018670382": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -636,7 +636,7 @@
           "BlogLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "BlogLambdaVersionVCJ7FEqQSvBSFuG3wYSOURhqsfTeEg6QsdR6UxQ18"
+              "Ref": "BlogLambdaVersionp2GC5iceE6AjtOKE6WpAJPg4lQ5QKtJvC6huTMDuvw"
             }
           },
           "ServiceEndpoint": {
@@ -854,7 +854,7 @@
         "timeout": 30,
         "runtime": "nodejs16.x",
         "vpc": {},
-        "versionLogicalId": "BlogLambdaVersionVCJ7FEqQSvBSFuG3wYSOURhqsfTeEg6QsdR6UxQ18"
+        "versionLogicalId": "BlogLambdaVersionp2GC5iceE6AjtOKE6WpAJPg4lQ5QKtJvC6huTMDuvw"
       },
       "root": {
         "handler": "server/root.handler",
@@ -892,7 +892,7 @@
       },
       "package": {
         "individually": true,
-        "artifactDirectoryName": "serverless/sls-nextjs-serverless/localdev/1678008178730-2023-03-05T09:22:58.730Z"
+        "artifactDirectoryName": "serverless/sls-nextjs-serverless/localdev/1678018672404-2023-03-05T12:17:52.404Z"
       },
       "custom": {
         "$ref": "$[\"service\"][\"custom\"]"
@@ -911,7 +911,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/sls-nextjs-serverless/localdev/1678008178730-2023-03-05T09:22:58.730Z",
+    "artifactDirectoryName": "serverless/sls-nextjs-serverless/localdev/1678018672404-2023-03-05T12:17:52.404Z",
     "artifact": ""
   }
 }
