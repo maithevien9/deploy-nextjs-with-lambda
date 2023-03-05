@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@4.2.1
+  node: circleci/node@5.1.0
   aws-cli: circleci/aws-cli@3.1
   serverless-framework: circleci/serverless-framework@2.0
 
@@ -17,27 +17,41 @@ jobs:
       - run:
           name: Build
           command: yarn clean && yarn build
-      - aws-cli/setup
-      - serverless-framework/setup
-      - run:
-          name: Install AWS CLI
-          command: |
-            sudo apt-get update && sudo apt-get install -y python3-pip
-            sudo pip3 install awscli --upgrade
+      # - run:
+      #     name: Install AWS CLI
+      #     command: |
+      #       sudo apt-get update && sudo apt-get install -y python3-pip
+      #       sudo pip3 install awscli --upgrade
       # - run:
       #     name: Install lambda:sls
       #     command: |
       #       yarn add global serverless
       #       serverless plugin install --name serverless-python-requirements
+      # - run:
+      #     name: Deploy
+      #     command: yarn run lambda:sls deploy
+
+  deploy_app:
+    docker:
+      - image: circleci/python:3.8
+    steps:
+      - checkout
+      - aws-cli/setup
+      - serverless-framework/setup
       - run:
-          name: Deploy
-          command: yarn run lambda:sls deploy
+          name: Deploy to AWS Lambda
+          command: |
+            serverless deploy
 
 workflows:
-  version: 2
-  build_deploy:
+  build_and_deploy:
     jobs:
       - build_deploy:
+          context: deploy
+          filters:
+            branches:
+              only: master
+      - deploy_app:
           context: deploy
           filters:
             branches:
