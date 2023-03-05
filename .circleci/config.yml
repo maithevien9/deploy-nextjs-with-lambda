@@ -17,16 +17,7 @@ jobs:
       - run:
           name: Build
           command: yarn clean && yarn build
-      - run:
-          name: Install AWS CLI
-          command: |
-            sudo apt-get update && sudo apt-get install -y python3-pip
-            sudo pip3 install awscli --upgrade
-      - run:
-          name: Install lambda:sls
-          command: |
-            npm install -g @redantinc/lambda-sls
-            # serverless plugin install --name serverless-python-requirements
+
       # - run:
       #     name: Deploy
       #     command: yarn run lambda:sls deploy
@@ -38,6 +29,10 @@ jobs:
       - checkout
       - aws-cli/setup
       - serverless-framework/setup
+      - run:
+          name: Install lambda:sls
+          command: |
+            yarn add global @redantinc/lambda-sls
       - run:
           name: Deploy to AWS Lambda
           command: |
