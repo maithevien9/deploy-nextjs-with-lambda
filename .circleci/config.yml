@@ -9,7 +9,7 @@ jobs:
   build_deploy:
     executor:
       name: node/default
-      tag: '14.6.0'
+      tag: '14.15.0'
     steps:
       - checkout
       - node/install-packages:
