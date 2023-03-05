@@ -17,15 +17,15 @@ jobs:
       - run:
           name: Build
           command: yarn clean && yarn build
-      # - run:
-      #     name: Install AWS CLI
-      #     command: |
-      #       sudo apt-get update && sudo apt-get install -y python3-pip
-      #       sudo pip3 install awscli --upgrade
-      # - run:
-      #     name: Install lambda:sls
-      #     command: |
-      #       yarn add global serverless
+      - run:
+          name: Install AWS CLI
+          command: |
+            sudo apt-get update && sudo apt-get install -y python3-pip
+            sudo pip3 install awscli --upgrade
+      - run:
+          name: Install lambda:sls
+          command: |
+            yarn add global serverless
       #       serverless plugin install --name serverless-python-requirements
       # - run:
       #     name: Deploy
