@@ -12,13 +12,13 @@ jobs:
       tag: '14.6.0'
     steps:
       - checkout
-      - aws-cli/setup
-      - serverless-framework/setup
       - node/install-packages:
           pkg-manager: yarn
       - run:
           name: Build
           command: yarn clean && yarn build
+      - aws-cli/setup
+      - serverless-framework/setup
       - run:
           name: Deploy
           command: serverless deploy -v
