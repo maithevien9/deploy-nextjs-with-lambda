@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Deploy to AWS Lambda
           command: |
-            sls deploy
+            yarn lambda:deploy
       # - run:
       #     name: Install lambda:sls
       #     command: |
