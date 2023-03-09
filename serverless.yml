@@ -2,6 +2,7 @@
 service: sls-${self:custom.service}
 
 package:
+  # allow a developer to update or modify one function without having to redeploy the entire application.
   individually: true
 
 custom:
@@ -28,29 +29,13 @@ custom:
         - 'postcss'
         - 'webpack'
 
-      allowMissing:
-        'node-fetch':
-          - 'encoding'
-        'next':
-          - 'critters' # for CSS optimization
-          - 'pnpapi' # for PnP usage
-          - 'fibers' # Part of sass-loader
-          - '@next/font' # Optional next font loading
-          # If using `experimental.nextScriptWorkers = true` you'll need to remove
-          # this allowMissing and `yarn add @builder.io/partytown`
-          # See: https://nextjs.org/docs/basic-features/script#off-loading-scripts-to-a-web-worker-experimental
-          - '@builder.io/partytown'
-        # ... and here too for partytown.
-        './.next/server/pages/_document.js':
-          - '@builder.io/partytown'
-
       dynamic:
+        # used to define dynamic module resolution rules
         resolutions:
           # Sources
           # -------
           # Our servers do lazy requires of pages.
           './server/blog.js': []
-          # './server/root.js': []
 
           # Built
           # -----
@@ -144,8 +129,8 @@ custom:
           'next/dist/server/require.js': []
 
 plugins:
+  # optimize your Serverless Framework deployments by removing unnecessary files
   - serverless-jetpack
-  - serverless-offline
 
 provider:
   name: aws
